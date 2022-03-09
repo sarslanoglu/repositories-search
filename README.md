@@ -1,24 +1,56 @@
-# README
+## Description
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Basic application to fetch Github public repos
 
-Things you may want to cover:
+## Install
 
-* Ruby version
+### Clone the repository
 
-* System dependencies
+```shell
+git clone git@github.com:sarslanoglu/repositories-search.git
+cd srepositories-search
+```
 
-* Configuration
+### Check your Ruby version
 
-* Database creation
+```shell
+ruby -v
+```
 
-* Database initialization
+The output should be like `ruby 3.0.0`
 
-* How to run the test suite
+If not, install the right ruby version using [rvm](https://github.com/rvm/rvm) (it could take a while):
 
-* Services (job queues, cache servers, search engines, etc.)
+```shell
+rvm install 3.0.0
+```
 
-* Deployment instructions
+### Install dependencies
 
-* ...
+Using [Bundler](https://github.com/bundler/bundler):
+
+```shell
+bundle install
+```
+
+## Serve
+
+```shell
+rails s
+```
+
+Just visit http://localhost:3000/ or your configuration of local url
+
+## Testing
+
+For rubocop to run
+
+```shell
+rubocop
+```
+
+For rspec to run
+
+```shell
+rspec
+```

@@ -1,0 +1,51 @@
+<div class = "container">
+  <% if @is_github_down %>
+    <h1>We are having some technical difficulties, hold tight</h1>
+
+    <th>We tried our best to get your search results but either github is not responding or our system couldn't parse the information. Please try with a different search or wait until problem is fixed</th>
+  <% elsif @is_limit_reached %>
+    <h1>Houston, we have a problem</h1>
+
+    <th>Github is only allowing first 1000 repository results for time being. Please make your query a little bit specific to find better results</th>
+
+    <%= form_with url: "/", method: :get do |form| %>
+      <%= form.button "Home" %>
+    <% end %>
+  <% else %>
+    <h1>Repositories</h1>
+
+    <%= form_with url: "/", method: :get do |form| %>
+      <%= form.label :query, "Search:" %>
+      <%= form.text_field :query, value: params[:query] %>
+      <%= form.submit "Search" %>
+      <% if @total_result > 0 %>
+        <th><%= @total_result %> repo found</th>
+        <% if @total_pages > 0 %>
+          <th>-- <%= @total_pages %> page/pages found, select page</th>
+          <%= select_tag :page, options_for_select(1..@total_pages, @selected_page), onchange: "this.form.submit();" %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if @is_empty_state %>
+      <th>Your search results will appear here</th>
+    <% else %>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Owner</th>
+          <th>User Image</th>
+        </tr>
+        <% @repositories.each do |item| %>
+          <tr>
+            <td><%= item['id'] %></td>
+            <td><%= item['name'] %></td>
+            <td><%= item['owner']['login'] %></td>
+            <td><%= image_tag item['owner']['avatar_url'], size: "50x50" %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  <% end %>
+</div>
